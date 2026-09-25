@@ -582,7 +582,7 @@ describe('Editor header actions', () => {
     await expect.element(editorScreen.publishButton()).toBeEnabled();
     await publishThroughFlow();
 
-    await expect.element(editorScreen.reauthBanner()).toHaveTextContent('Your session expired');
+    await expect.element(editorScreen.reauthDialog()).toHaveTextContent('Are you still here?');
     // The engine holds the publish until the session is restored, so the flow waits with it.
     await expect.element(publishScreen.confirm()).toBeVisible();
     await expect(publishScreen.complete()).toHaveCount(0);

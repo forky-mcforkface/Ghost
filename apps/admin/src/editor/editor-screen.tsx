@@ -35,6 +35,7 @@ import { EditorHeaderActions } from './editor-header-actions';
 import { EditorStatus } from './editor-status';
 import { PostEditor } from './post-editor';
 import type { EditorStatusRecord } from './post-status';
+import { ReauthDialog } from './session/reauth-dialog';
 import { SessionBanners } from './session/session-banners';
 import { PostSettingsSidebar } from './settings/post-settings-sidebar';
 import { useFeatureImageBinding } from './session/feature-image-binding';
@@ -188,10 +189,14 @@ function EditorContent({
         hasUnsavedContent={session.hasUnsavedContent}
         pendingSave={session.pendingSave}
         state={session.state}
-        onDismissReauth={session.reauthAbandoned}
         onReload={session.reload}
-        onRetryReauth={session.reauthSucceeded}
         onRetrySave={session.dispatchExplicit}
+      />
+      <ReauthDialog
+        email={currentUser?.email ?? ''}
+        open={session.state.kind === 'reauth-pending'}
+        onAbandoned={session.reauthAbandoned}
+        onSucceeded={session.reauthSucceeded}
       />
       <Inline align="stretch" className="relative min-h-0 flex-1" gap="none">
         <div className="min-h-0 min-w-0 flex-1">
